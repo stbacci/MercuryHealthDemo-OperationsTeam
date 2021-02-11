@@ -12,8 +12,11 @@ jobs:
 
       - uses: stbacci/MercuryHealthDemo-Actions/.github/actions/env-req-parser@master
         id: parser
-        
-      - run: echo "I know what the secret token is!"
+      - name: Logging  
+        run: |
+          echo "App Name:"
+          echo ${{ steps.parser.outputs.appName }}
+          
       - uses: azure/login@v1
         if: steps.parser.outputs.approved
         with:
