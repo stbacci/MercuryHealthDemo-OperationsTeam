@@ -22,7 +22,7 @@ jobs:
         if: steps.parser.outputs.approved
         with:
           inlineScript: |
-            az group create -n ${{ steps.parser.outputs.appName }}-rg -l ${{ secrets.DEFAULT_AZURE_LOCATION }}
+            az group create -n ${{ steps.parser.outputs.appName }}-rg -l ${{ secrets.DEFAULT_AZURELOCATION }}
             az group deployment create -g ${{ steps.parser.outputs.appName }}-rg --template-file $GITHUB_WORKSPACE/templates/${{ steps.parser.outputs.armTemplate }}/azuredeploy.json --parameters name=${{ steps.parser.outputs.appName }} password=${{ secrets.DEFAULT_PASSWORD }}
 
       - uses: azure/CLI@v1
