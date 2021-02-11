@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: stbacci/MercuryHealthDemo-Actions/.github/actions/env-req-parser@master
+      - uses: stbacci/MercuryHealth-Actions/.github/actions/env-req-parser@master
         id: parser
 
       - uses: azure/login@v1
@@ -23,7 +23,7 @@ jobs:
         with:
           inlineScript: |
             az group create -n ${{ steps.parser.outputs.appName }}-rg -l ${{ secrets.DefaultAzureLocation }}
-            az group deployment create -g ${{ steps.parser.outputs.appName }}-rg --template-file $GITHUB_WORKSPACE/templates/${{ steps.parser.outputs.armTemplate }}/azuredeploy.json --parameters name=${{ steps.parser.outputs.appName }} password=${{ secrets.DEFAULT_PASSWORD }}
+            az group deployment create -g ${{ steps.parser.outputs.appName }}-rg --template-file $GITHUB_WORKSPACE/templates/${{ steps.parser.outputs.armTemplate }}/azuredeploy.json --parameters name=${{ steps.parser.outputs.appName }} password=${{ secrets.DefaultPassword }}
 
       - uses: azure/CLI@v1
         if: steps.parser.outputs.approved && steps.parser.outputs.applyPolicy
